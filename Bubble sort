@@ -1,0 +1,55 @@
+//ANALISIS DE DATOS EN BUBBLE SORT
+//Cecilia del Pilar Vilca Alvites
+
+
+#include <iostream>
+using namespace std;
+
+void bubbleSort(int array[], int size)
+{
+    int asignaciones=0;
+    int comparaciones=0;
+    int memoriaarreglo=1;
+    int step, i, temp;
+    int memoria=3;
+
+  for (step = 0; step < size - 1; ++step, asignaciones+=2, comparaciones++)
+  {
+    for (i = 0; i < size - step - 1; ++i, asignaciones+=2, comparaciones++)
+    {
+      if (array[i] > array[i + 1])
+      {
+        comparaciones++;
+        temp = array[i];
+        asignaciones++;
+        array[i] = array[i + 1];
+        asignaciones++;
+        array[i + 1] = temp;
+        asignaciones++;
+      }
+      comparaciones++;
+    }
+  }
+
+  cout<<"Asignaciones: "<<asignaciones*8<<endl;
+  cout<<"Comparaciones: "<<comparaciones*2<<endl;
+  cout<<"Creacion de objetos: "<<memoria*200<<endl;
+  cout<<"Memoria gastada en un arreglo: "<<memoriaarreglo*50+size*10<<endl;
+}
+
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; ++i) {
+    cout << "  " << array[i];
+  }
+  cout << "\n";
+}
+
+int main()
+{
+  int data[] = {-2, 45, 0, 11, -9};
+  int size = sizeof(data) / sizeof(data[0]);
+  bubbleSort(data, size);
+  printArray(data, size);
+}
+
+//Codigo de Bubble sort sacado de https://www.programiz.com/dsa/bubble-sort
