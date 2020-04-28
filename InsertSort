@@ -1,0 +1,57 @@
+// ANALISIS DE DATOS EN INSERTSORT
+// Cecilia del Pilar Vilca Alvites
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void insertSort(int arr[], int n)
+{
+    int asignaciones=0;
+    int comparaciones=0;
+    int memoriaarreglo=1;
+    int i, key, j;
+    int memoria=3;
+    for (i = 1; i < n; i++,asignaciones+=2,comparaciones++)
+    {
+        key = arr[i];
+        asignaciones++;
+        j = i - 1;
+        asignaciones++;
+        while (j >= 0 && arr[j] > key)
+        {
+            comparaciones+=2;
+            arr[j + 1] = arr[j];
+            asignaciones++;
+            j = j - 1;
+            asignaciones++;
+        }
+        comparaciones+=2;
+        arr[j + 1] = key;
+        asignaciones++;
+    }
+    cout<<"Asignaciones: "<<asignaciones*8<<endl;
+    cout<<"Comparaciones: "<<comparaciones*2<<endl;
+    cout<<"Creacion de objetos: "<<memoria*200<<endl;
+    cout<<"Memoria gastada en un arreglo: "<<memoriaarreglo*50+n*10<<endl;
+}
+
+void printArray(int arr[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+int main()
+{
+    int arr[] = { 12, 11, 13, 5, 6 };
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    insertSort(arr, n);
+    printArray(arr, n);
+
+    return 0;
+}
+
+// El codigo de InserSort y PrintArray fue hecho por rathbhupendra
