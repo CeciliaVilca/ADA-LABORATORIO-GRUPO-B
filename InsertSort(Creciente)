@@ -1,0 +1,76 @@
+// ANALISIS DE DATOS EN INSERTSORT (CRECIENTE)
+// Cecilia del Pilar Vilca Alvites
+
+
+#include <bits/stdc++.h>
+#include <cstdlib>
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+void insertSort(int arr[], int n)
+{
+    int asignaciones=0;
+    int comparaciones=0;
+    int memoriaarreglo=1;
+    int i, key, j;
+    int memoria=3;
+    for (i = 1; i < n; i++,asignaciones+=2,comparaciones++)
+    {
+        key = arr[i];
+        asignaciones++;
+        j = i - 1;
+        asignaciones++;
+        while (j >= 0 && arr[j] > key)
+        {
+            comparaciones+=2;
+            arr[j + 1] = arr[j];
+            asignaciones++;
+            j = j - 1;
+            asignaciones++;
+        }
+        comparaciones+=2;
+        arr[j + 1] = key;
+        asignaciones++;
+    }
+    cout<<"Asignaciones: "<<asignaciones*8<<endl;
+    cout<<"Comparaciones: "<<comparaciones*2<<endl;
+    cout<<"Creacion de objetos: "<<memoria*200<<endl;
+    cout<<"Memoria gastada en un arreglo: "<<memoriaarreglo*50+n*10<<endl;
+}
+
+
+void printArray(int arr[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+int main()
+{
+    unsigned t0, t1;
+
+    t0=clock();
+    //int tam=500;
+    //int tam=1000;
+    //int tam=2000;
+    //int tam=5000;
+    int tam=10000;
+    int arr[tam];
+    for(int i=0;i<tam;i++)
+    {
+        arr[i]=i;
+    }
+
+    insertSort(arr, tam);
+    printArray(arr, tam);
+
+    t1 = clock();
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << "\n Execution Time: " << time << endl;
+
+    return 0;
+}
