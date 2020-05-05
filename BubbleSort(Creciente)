@@ -1,0 +1,74 @@
+//ANALISIS DE DATOS EN BUBBLE SORT(Creciente)
+//Cecilia del Pilar Vilca Alvites
+
+#include <bits/stdc++.h>
+#include <cstdlib>
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+void bubbleSort(int array[], int size)
+{
+    int asignaciones=0;
+    int comparaciones=0;
+    int memoriaarreglo=1;
+    int step, i, temp;
+    int memoria=3;
+
+  for (step = 0; step < size - 1; ++step, asignaciones+=2, comparaciones++)
+  {
+    for (i = 0; i < size - step - 1; ++i, asignaciones+=2, comparaciones++)
+    {
+      if (array[i] > array[i + 1])
+      {
+        comparaciones++;
+        temp = array[i];
+        asignaciones++;
+        array[i] = array[i + 1];
+        asignaciones++;
+        array[i + 1] = temp;
+        asignaciones++;
+      }
+      comparaciones++;
+    }
+  }
+
+  cout<<"Asignaciones: "<<asignaciones*8<<endl;
+  cout<<"Comparaciones: "<<comparaciones*2<<endl;
+  cout<<"Creacion de objetos: "<<memoria*200<<endl;
+  cout<<"Memoria gastada en un arreglo: "<<memoriaarreglo*50+size*10<<endl;
+}
+
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; ++i) {
+    cout << "  " << array[i];
+  }
+  cout << "\n";
+}
+
+int main()
+{
+  unsigned t0, t1;
+
+    t0=clock();
+    //int tam=500;
+    //int tam=1000;
+    //int tam=2000;
+    int tam=5000;
+    //int tam=10000;
+    int arr[tam];
+    for(int i=0;i<tam;i++)
+    {
+        arr[i]=i;
+    }
+
+    bubbleSort(arr,tam);
+    printArray(arr, tam);
+
+    t1 = clock();
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << "\n Execution Time: " << time << endl;
+
+    return 0;
+}
