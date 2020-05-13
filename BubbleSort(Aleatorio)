@@ -51,7 +51,6 @@ int main()
 {
   unsigned t0, t1;
 
-    t0=clock();
     //int tam=500;
     //int tam=1000;
     //int tam=2000;
@@ -62,7 +61,8 @@ int main()
     {
         arr[i]=rand();
     }
-
+    
+    t0=clock();
     bubbleSort(arr,tam);
     printArray(arr, tam);
 
