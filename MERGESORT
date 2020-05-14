@@ -1,0 +1,102 @@
+// ANALISIS DE DATOS EN MERGESORT 
+// Cecilia del Pilar Vilca Alvites
+#include<iostream>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+
+void display(int *array, int size)
+{
+   for(int i = 0; i<size; i++)
+      cout << array[i] << " ";
+   cout << endl;
+}
+
+void merge(int *array, int l, int m, int r)
+{
+   int i, j, k, nl, nr;
+   int memoriausada=5;
+   int asignaciones=5;
+   int comparaciones=0;
+   //size of left and right sub-arrays
+   nl = m-l+1; nr = r-m;
+   int larr[nl], rarr[nr];
+   int memoriaarreglo=2;
+   //fill left and right sub-arrays
+   for(i = 0; i<nl; i++,asignaciones=+2,comparaciones++)
+      {larr[i] = array[l+i];
+        asignaciones++;}
+   for(j = 0; j<nr; j++,asignaciones=+2,comparaciones++)
+      {rarr[j] = array[m+1+j];
+        asignaciones++;}
+   i = 0; j = 0; k = l;
+   //marge temp arrays to real array
+   while(i < nl && j<nr)
+    {
+        comparaciones+=2;
+      if(larr[i] <= rarr[j])
+      {
+          comparaciones+=2;
+         array[k] = larr[i];
+         i++;
+         asignaciones+=2;
+      }
+      else
+      {
+         array[k] = rarr[j];
+         j++;
+         asignaciones+=2;
+      }
+      k++;
+      asignaciones++;
+   }
+   while(i<nl)
+   {       //extra element in left array
+       comparaciones++;
+      array[k] = larr[i];
+      i++; k++;
+        asignaciones+=3;
+   }
+   while(j<nr)
+    {     //extra element in right array
+        comparaciones++;
+      array[k] = rarr[j];
+      j++; k++;
+      asignaciones+=3;
+   }
+
+   cout<<"Asignaciones: "<<asignaciones<<endl;
+   cout<<"Comparaciones: "<<comparaciones<<endl;
+   cout<<"Creacion de objetos: "<<memoriausada<<endl;
+   cout<<"Memoria gastada en un arreglo: "<<memoriaarreglo<<endl;
+}
+void mergeSort(int *array, int l, int r) {
+   int m;
+   if(l < r) {
+      int m = l+(r-l)/2;
+      // Sort first and second arrays
+      mergeSort(array, l, m);
+      mergeSort(array, m+1, r);
+      merge(array, l, m, r);
+   }
+}
+int main()
+{
+    unsigned t0, t1;
+
+    int tam=100;
+    int arr[tam];
+    for(int i=0;i<tam;i++)
+    {
+        arr[i]=tam-i;
+    }
+
+    t0=clock();
+    mergeSort(arr, 0, tam-1);
+    display(arr, tam);
+    t1 = clock();
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << "\n Execution Time: " << time << endl;
+}
