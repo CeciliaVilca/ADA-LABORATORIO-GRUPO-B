@@ -1,0 +1,73 @@
+// ANALISIS DE DATOS EN MERGESORT-INTERCALA(ASCENDENTE)
+// Cecilia del Pilar Vilca Alvites
+
+#include<iostream>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+void display(int *array, int size)
+{
+   for(int i = 0; i<size; i++)
+      cout << array[i] << " ";
+   cout << endl;
+}
+
+void intercalar(int A[], int p, int q, int r)
+{
+
+    int B[r+1];
+
+    for (int y = p; y <= q; y++)
+        B[y] = A[y];
+    for (int w = q + 1; w <= r; w++)
+    {
+        B[ r + q + 1 - w] = A[w];
+    }
+
+    int i = p;
+    int j = r;
+    for (int k = p; k <= r; k++)
+    {
+        if(B[i] <= B[j])
+            {
+                A[k] = B[i];
+                i = i + 1;
+            }
+        else
+            {
+                A[k] = B[j];
+                j = j-1;
+            }
+    }
+}
+
+void mergeSort(int *array, int l, int r) {
+   int m;
+   if(l < r) {
+      int m = l+(r-l)/2;
+      // Sort first and second arrays
+      mergeSort(array, l, m);
+      mergeSort(array, m+1, r);
+      intercalar(array, l, m, r);
+   }
+}
+int main()
+{
+    unsigned t0, t1;
+
+    int tam=900;
+    int arr[tam];
+    for(int i=0;i<tam;i++)
+    {
+        arr[i]=i;
+    }
+
+    t0=clock();
+    mergeSort(arr, 0, tam-1);
+    display(arr, tam);
+    t1 = clock();
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << "\n Execution Time: " << time << endl;
+}
