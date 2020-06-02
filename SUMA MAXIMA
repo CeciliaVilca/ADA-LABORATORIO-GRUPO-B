@@ -1,0 +1,79 @@
+//CECILIA DELPILAR VILCA ALVITES
+
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+using namespace std;
+
+int sumaMaxima(vector<int> array,int ruta) {
+    int aux = array[0];
+    size_t tam = array.size();
+    int cont;
+    int inicio = 0 , fin = 0;
+    for (int i = 0; i < tam; i++){
+        cont = 0;
+        for (int j = i; j < tam; j++){
+            cont = cont + array[j];
+            if (cont >= aux){
+                aux = cont;
+                inicio=i+1;
+                fin=j+2;
+            }
+        }
+    }
+    
+    if(aux<0){
+        cout<<"La ruta "<<ruta<<" no tiene calles interesantes."<<endl;
+        return aux;
+    }
+    cout<<"La mejor parte de la ruta "<<ruta<<" es entre las calles "<<inicio<<" y "<<fin<<" :suma "<<aux<<endl;
+    return aux;
+}
+
+void mostrar(vector<int> vec){
+    for(size_t i = 0;i<vec.size();i++){
+        cout<<vec[i]<<" ";
+    }
+    cout<<endl;
+}
+
+void vendedor(size_t tam,int ruta){
+    vector<int> datos;
+    for(size_t i = 0;i<tam;i++){
+        int num = rand()%10;
+        if (rand()%2)
+            num = num*-1;
+        datos.push_back(num);
+    }  
+    mostrar(datos);
+    sumaMaxima(datos,ruta);
+}
+
+int main()
+{
+    vector<int> datos;
+    datos.push_back(-1);
+    datos.push_back(6);
+    sumaMaxima(datos,1);
+    
+    datos.clear();
+    datos.push_back(4);
+    datos.push_back(-5);
+    datos.push_back(4);
+    datos.push_back(-3);
+    datos.push_back(4);
+    datos.push_back(4);
+    datos.push_back(-4);
+    datos.push_back(4);
+    datos.push_back(-5);
+    sumaMaxima(datos,2);
+    
+    datos.clear();
+    datos.push_back(-3);
+    datos.push_back(-4);
+    datos.push_back(-5);
+    sumaMaxima(datos,3);
+    
+    vendedor(10000,76);
+    return 0;
+}
